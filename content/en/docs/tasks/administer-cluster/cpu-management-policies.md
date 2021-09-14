@@ -60,6 +60,12 @@ duration as `--node-status-update-frequency`.
 
 The behavior of the static policy can be fine-tuned using the `--cpu-manager-policy-options` flag.
 The flag takes a comma-separated list of `key=value` policy options.
+The policy options are split in two groups: alpha quality, hidden by default, and beta or stable
+quality, visible by default. The groups are guarded by the `CPUManagerExperimentalPolicyOptions`
+and `CPUManagerPolicyOptions` feature gates.
+The `CPUManagerPolicyOptions` feature gate governs the policy options feature as whole: if disabled,
+all the policy options are disabled. The `CPUManagerExperimentalPolicyOptions` only controls the
+experimental, alpha quality policy options.
 
 ### None policy
 
@@ -217,6 +223,8 @@ container's resource limit for the CPU resource is an integer greater than or
 equal to one. The `nginx` container is granted 2 exclusive CPUs.
 
 #### Static policy options
+
+##### Beta/Stable options (available by default)
 
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
 You can enable this option by adding `full-pcups-only=true` to the CPUManager policy options.
